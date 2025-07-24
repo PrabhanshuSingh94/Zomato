@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders | Restaurant Admin Panel</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <base href="/Zomato/Restaurant/">
+    <style>
+        .cursor-pointer {
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div class="container-fluid main-dashboard">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-2 col-md-3 p-0 sidebar">
+                <div class="d-flex flex-column p-3">
+                    <div class="text-center mb-4 p-3">
+                        <img src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png" alt="Zomato Logo" class="logo mb-2">
+                        <h5 class="mt-2 mb-0" id="restaurantNameDisplay">Restaurant Name</h5>
+                        <p class="text-muted small">Restaurant Admin</p>
+                    </div>
+                    <hr>
+                    <ul class="nav flex-column mb-auto">
+                        <li class="nav-item">
+                            <a href="dashboard" class="nav-link">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="categories" class="nav-link">
+                                <i class="fas fa-list"></i> Categories
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="foods" class="nav-link">
+                                <i class="fas fa-utensils"></i> Food Items
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="orders" class="nav-link active">
+                                <i class="fas fa-shopping-bag"></i> Orders
+                            </a>
+                        </li>
+                        
+                    </ul>
+                    <hr>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=CB202D&color=fff" alt="Admin" width="32" height="32" class="rounded-circle me-2">
+                            <strong>Admin</strong>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-10 col-md-9 p-0">
+                <div class="header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary d-md-none me-2" id="sidebarToggle">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <h4 class="mb-0">Orders</h4>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="input-group me-3" style="width: 300px;">
+                                <input type="text" class="form-control" placeholder="Search orders...">
+                                <button class="btn btn-outline-secondary" type="button">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="filterDropdown" data-bs-toggle="dropdown">
+                                    <i class="fas fa-filter"></i> Filter
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                                    <li><h6 class="dropdown-header">Date Range</h6></li>
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">Yesterday</a></li>
+                                    <li><a class="dropdown-item" href="#">Last 7 Days</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><h6 class="dropdown-header">Status</h6></li>
+                                    <li><a class="dropdown-item" href="#">All</a></li>
+                                    <li><a class="dropdown-item" href="#">New</a></li>
+                                    <li><a class="dropdown-item" href="#">Processing</a></li>
+                                    <li><a class="dropdown-item" href="#">Completed</a></li>
+                                    <li><a class="dropdown-item" href="#">Cancelled</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-content" id="orderManagement">
+                    <!-- Order Tabs -->
+                    <ul class="nav nav-tabs mb-4">
+                        <li class="nav-item">
+                            <a class="nav-link order-tab active cursor-pointer" data-target="newOrders" >
+                                New <span class="badge bg-primary ms-1" id="newOrdersCount">0</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link order-tab cursor-pointer" data-target="processingOrders" >
+                                Processing <span class="badge bg-warning ms-1" id="processingOrdersCount">0</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link order-tab cursor-pointer" data-target="completedOrders" >
+                                Completed <span class="badge bg-success ms-1" id="completedOrdersCount">0</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link order-tab cursor-pointer" data-target="cancelledOrders" >
+                                Cancelled <span class="badge bg-danger ms-1" id="cancelledOrdersCount">0</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- New Orders -->
+                    <div class="order-container" id="newOrders">
+                        <!-- New orders will be loaded dynamically -->
+                    </div>
+
+                    <!-- Processing Orders -->
+                    <div class="order-container" id="processingOrders" style="display: none;">
+                        <!-- Processing orders will be loaded dynamically -->
+                    </div>
+
+                    <!-- Completed Orders -->
+                    <div class="order-container" id="completedOrders" style="display: none;">
+                        <!-- Completed orders will be loaded dynamically -->
+                    </div>
+
+                    <!-- Cancelled Orders -->
+                    <div class="order-container" id="cancelledOrders" style="display: none;">
+                        <!-- Cancelled orders will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal fade" id="orderDetailsModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Order Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6>Customer Information</h6>
+                            <p class="mb-1"><strong>Name:</strong> <span id="detailsCustomerName"></span></p>
+                            <p class="mb-1"><strong>Phone:</strong> <span id="detailsPhone"></span></p>
+                            <p class="mb-1"><strong>Delivery Address:</strong> <span id="detailsAddress"></span></p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Order Information</h6>
+                            <p class="mb-1"><strong>Order ID:</strong> <span id="detailsOrderId"></span></p>
+                            <p class="mb-1"><strong>Time:</strong> <span id="detailsOrderTime"></span></p>
+                            <p class="mb-1"><strong>Status:</strong> <span id="detailsOrderStatus" class="status-badge"></span></p>
+                        </div>
+                    </div>
+                    
+                    <h6>Order Items</h6>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orderItemsList">
+                                <!-- Order items will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="row mt-3">
+                        <div class="col-md-6 ms-auto">
+                            <table class="table table-sm">
+                                <tr>
+                                    <td>Subtotal:</td>
+                                    <td class="text-end" id="detailsSubtotal"></td>
+                                </tr>
+                                <tr>
+                                    <td>Tax:</td>
+                                    <td class="text-end" id="detailsTax"></td>
+                                </tr>
+                                <tr>
+                                    <th>Total:</th>
+                                    <th class="text-end" id="detailsTotal"></th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <!-- <script src="js/main.js"></script> -->
+    <script src="js/orders.js"></script>
+</body>
+</html>

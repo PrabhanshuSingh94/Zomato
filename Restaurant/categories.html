@@ -1,0 +1,246 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories | Restaurant Admin Panel</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <base href="/Zomato/Restaurant/">
+
+    <style>
+  /* Category Card Styles */
+.category-card {
+    height: 350px;
+    max-width: 250px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.category-card .category-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.category-card .card-body {
+    padding: 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-card .card-title {
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 10px; /* Space between title and button */
+}
+
+/* Button Styles */
+.card-footer {
+    background-color: white;
+    border: 0;
+}
+
+.card-footer .d-flex {
+    justify-content: flex-end;
+}
+
+.card-footer .btn-outline-primary, .card-footer .btn-outline-danger {
+    font-size: 12px;
+    padding: 5px 10px;
+    margin-top: 10px; 
+}
+
+/* Optional: You can modify the card grid layout here as well */
+.col-md-3 {
+    max-width: 250px;
+    margin-bottom: 20px;
+}
+
+body.no-clicks {
+    pointer-events: none;
+}
+
+body.no-clicks .toast {
+    pointer-events: auto;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid main-dashboard">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-2 col-md-3 p-0 sidebar">
+                <div class="d-flex flex-column p-3">
+                    <div class="text-center mb-4 p-3">
+                        <img src="https://b.zmtcdn.com/web_assets/b40b97e677bc7b2ca77c58c61db266fe1603954218.png" alt="Zomato Logo" class="logo mb-2">
+                        <h5 class="mt-2 mb-0" id="restaurantNameDisplay">Restaurant Name</h5>
+                        <p class="text-muted small">Restaurant Admin</p>
+                    </div>
+                    <hr>
+                    <ul class="nav flex-column mb-auto">
+                        <li class="nav-item">
+                            <a href="dashboard" class="nav-link">
+                                <i class="fas fa-tachometer-alt"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="categories" class="nav-link active">
+                                <i class="fas fa-list"></i> Categories
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="foods" class="nav-link">
+                                <i class="fas fa-utensils"></i> Food Items
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="orders" class="nav-link">
+                                <i class="fas fa-shopping-bag"></i> Orders
+                            </a>
+                        </li>
+                        
+                    </ul>
+                    <hr>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown">
+                            <img src="https://ui-avatars.com/api/?name=Admin&background=CB202D&color=fff" alt="Admin" width="32" height="32" class="rounded-circle me-2">
+                            <strong>Admin</strong>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-lg-10 col-md-9 p-0">
+                <div class="header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <button class="btn btn-sm btn-outline-secondary d-md-none me-2" id="sidebarToggle">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <h4 class="mb-0">Categories</h4>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                                <i class="fas fa-plus"></i> Add Category
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-content" id="categoryManagement">
+                    <div class="row" id="categoriesList">
+                        <!-- Categories will be loaded dynamically via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Category Modal -->
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="customCategoryForm">
+                        <div class="form-group">
+                            <label for="customCategoryName" class="form-label">Category Name</label>
+                            <input type="text" id="customCategoryName" class="form-input" placeholder="Enter category name">
+                            <span class="d-none form-Error" id="nameError">*Category name is required.</span>
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="customCategoryImage" class="form-label">Upload Image</label>
+                            <input type="file" id="customCategoryImage" class="form-input" accept="image/*">
+                            <img id="imagePreview" class="preview-img mt-2" style="display:none; max-height: 100px;" alt="Image Preview">
+                            <span class="d-none form-Error" id="imageError">*Category Image is required.</span>
+                        </div>
+                        
+                    </form>
+                </div>
+                
+                <div class="modal-actions mb-2 me-2">
+                    <!-- ADD Modal Buttons -->
+                    <button type="button" class="action-btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="action-btn submit-btn" id="addCategoryBtn">Add Category</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Category Modal -->
+    <!-- <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <form>
+                    <input type="hidden" id="editCategoryId">
+                    <div class="form-group">
+                        <div class="m-3">
+                            <label for="editCategoryName" class="form-label">Category Name</label>
+                            <input type="text" class="form-control" id="editCategoryName" placeholder="Enter category name">
+                            <span class="d-none form-Error" id="editNameError">Category name is required.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="me-3 ms-3">
+                            <label for="editCategoryImage" class="form-label">Upload Image</label>
+                            <input type="file" id="editCategoryImage" class="form-control" accept="image/*">
+                            <span class="d-none form-Error" id="imageError">Valid image is required.</span>
+
+                            <img id="editImagePreview" class="preview-img img-thumbnail mt-2" style="max-height: 150px; display: none;" alt="Image Preview">
+
+                        </div>
+                    </div>
+                    <div class="modal-actions mb-2 me-2">
+                        <button type="button" class="action-btn cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="action-btn submit-btn" id="saveEditCategoryBtn">Update Category</button>
+                    </div>
+                </form>
+                
+            </div>
+            
+            
+            </div>
+        </div>
+    </div> -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <!-- <script src="js/main.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/categories.js"></script>
+</body>
+</html>

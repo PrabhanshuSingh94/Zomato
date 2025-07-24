@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Registration Form</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --background-color: #f9f9f9;
+            --card-background: #ffffff;
+            --text-color: #333333;
+            --border-color: #dddddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: var(--card-background);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .description {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .success-message {
+            text-align: center;
+            color: var(--success-color);
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            background-color: rgba(39, 174, 96, 0.1);
+            display: none;
+        }
+
+        .required::after {
+            content: "*";
+            color: var(--error-color);
+            margin-left: 4px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .validation-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+
+        .valid-icon {
+            color: var(--success-color);
+        }
+
+        .invalid-icon {
+            color: var(--error-color);
+        }
+
+        /* CSS FOR SPINER */
+        .spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+    </style>
+</head>
+<body>
+    <div id="loader" style="display: none;">
+        <div class="spinner"></div>
+        <p>Submitting your application, please wait...</p>
+    </div>
+    
+    <div class="container">
+        <h1>Restaurant Registration Form</h1>
+        <form id="registrationForm">
+            <div class="form-group">
+                <label class="required" for="gstin">GSTIN (Goods and Services Tax Identification Number)</label>
+                <div class="description">15-character alphanumeric code required for billing, taxation, and compliance.</div>
+                <div class="input-wrapper">
+                    <input type="text" id="gstin" name="gstin" placeholder="e.g., 29ABCDE1234F1Z5">
+                    <span class="validation-icon valid-icon">✓</span>
+                    <span class="validation-icon invalid-icon">✗</span>
+                </div>
+                <div class="error-message" id="gstinError">Please enter a valid 15-character GSTIN.</div>
+            </div>
+
+            <div class="form-group">
+                <label class="required" for="fssai">FSSAI License Number</label>
+                <div class="description">14-digit number issued by Food Safety and Standards Authority of India.</div>
+                <div class="input-wrapper">
+                    <input type="text" id="fssai" name="fssai" placeholder="e.g., 12345678901234">
+                    <span class="validation-icon valid-icon">✓</span>
+                    <span class="validation-icon invalid-icon">✗</span>
+                </div>
+                <div class="error-message" id="fssaiError">Please enter a valid 14-digit FSSAI license number.</div>
+            </div>
+
+            <div class="form-group">
+                <label class="required" for="pan">PAN (Permanent Account Number)</label>
+                <div class="description">10-character alphanumeric identifier for taxation and financial records.</div>
+                <div class="input-wrapper">
+                    <input type="text" id="pan" name="pan" placeholder="e.g., ABCDE1234F">
+                    <span class="validation-icon valid-icon">✓</span>
+                    <span class="validation-icon invalid-icon">✗</span>
+                </div>
+                <div class="error-message" id="panError">Please enter a valid 10-character PAN number.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="shopAct">Shop and Establishment Act License Number</label>
+                <div class="description">Required for legal registration under the local state's labor department.</div>
+                <div class="input-wrapper">
+                    <input type="text" id="shopAct" name="shopAct" placeholder="Enter license number">
+                    <span class="validation-icon valid-icon">✓</span>
+                    <span class="validation-icon invalid-icon">✗</span>
+                </div>
+                <div class="error-message" id="shopActError">Please enter a valid license number.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="tradeLicense">Trade License Number</label>
+                <div class="description">Issued by the local municipal corporation to legally operate a business.</div>
+                <div class="input-wrapper">
+                    <input type="text" id="tradeLicense" name="tradeLicense" placeholder="Enter trade license number">
+                    <span class="validation-icon valid-icon">✓</span>
+                    <span class="validation-icon invalid-icon">✗</span>
+                </div>
+                <div class="error-message" id="tradeLicenseError">Please enter a valid trade license number.</div>
+            </div>
+
+            <button type="submit" id="submitBtn">Submit Registration</button>
+        </form>
+        <div class="success-message" id="successMessage">
+            Registration information successfully submitted!
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="js/submitDoc.js"></script>
+</body>
+</html>

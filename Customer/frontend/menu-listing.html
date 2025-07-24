@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from themes.pixelstrap.net/zomo/landing/frontend/menu-listing by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 May 2025 12:47:25 GMT -->
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="zomo">
+    <meta name="keywords" content="zomo">
+    <meta name="author" content="zomo">
+    <link rel="icon" href="assets/images/logo/favicon.png" type="image/x-icon">
+    <title>zomo Web</title>
+    <link rel="apple-touch-icon" href="assets/images/logo/favicon.png">
+    <meta name="theme-color" content="#ff8d2f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="zomo">
+    <meta name="msapplication-TileImage" content="assets/images/logo/favicon.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!--Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet">
+
+    <base href="/Zomato/Customer/frontend/">
+
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" type="text/css" id="rtl-link" href="assets/css/vendors/bootstrap.css">
+
+    <!-- fancybox css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/fancybox.css">
+
+    <!-- remixicon css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/vendors/remixicon.css">
+
+    <!-- Theme css -->
+    <link rel="stylesheet" id="change-link" type="text/css" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        /* * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .header {
+            background-color: #cb202d;
+            color: white;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        } */
+
+        /* .header h1 {
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header h1 svg {
+            margin-right: 10px;
+        } */
+
+        .container-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            gap: 24px;
+        }
+
+        .main-dish {
+            flex: 2;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-dish-img {
+            width: 100%;
+            height: 300px;
+            object-fit:contain;
+        }
+
+        .main-dish-details {
+            padding: 20px;
+        }
+
+        .dish-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .dish-name h2 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .restaurant {
+            color: #696969;
+            font-size: 14px;
+        }
+
+        .rating {
+            background: #44b700;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .dish-description {
+            color: #696969;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .price-cart {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .add-to-cart {
+            background: white;
+            color: #cb202d;
+            border: 1px solid #cb202d;
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #cb202d;
+            color: white;
+        }
+
+        .qty-selector {
+            display: none;
+            align-items: center;
+        }
+
+        .qty-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid #cb202d;
+            background: white;
+            color: #cb202d;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: #cb202d;
+            color: white;
+        }
+
+        .qty-input {
+            width: 40px;
+            text-align: center;
+            font-size: 16px;
+            border: none;
+            margin: 0 8px;
+            font-weight: bold;
+        }
+
+        .dish-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 16px;
+            color: #696969;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+        }
+
+        .related-dishes {
+            flex: 1;
+        }
+
+        .suggestions-title {
+            margin-bottom: 16px;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .related-dish {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+            display: flex;
+            height: 120px;
+        }
+
+        .related-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .related-details {
+            padding: 12px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .related-name {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .related-restaurant {
+            color: #696969;
+            font-size: 12px;
+        }
+
+        .related-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .related-price {
+            font-weight: bold;
+        }
+
+        .related-add {
+            background: white;
+            color: #cb202d;
+            border: 1px solid #cb202d;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .related-add:hover {
+            background: #cb202d;
+            color: white;
+        }
+
+        .bottom-suggestions {
+            margin-top: 24px;
+        }
+
+        .bottom-suggestions h3 {
+            margin-bottom: 16px;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .bottom-dishes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .bottom-dish {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .bottom-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .bottom-details {
+            padding: 12px;
+        }
+
+        .bottom-name {
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .bottom-restaurant {
+            color: #696969;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .bottom-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            width: 300px;
+            padding: 16px;
+            max-height: 400px;
+            overflow: auto;
+            transform: translateY(120%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .cart-container.show {
+            transform: translateY(0);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .cart-close {
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cart-items {
+            margin-bottom: 16px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cart-item-name {
+            flex: 1;
+        }
+
+        .cart-item-qty {
+            width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .cart-item-price {
+            width: 60px;
+            text-align: right;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-top: 12px;
+            font-size: 16px;
+        }
+
+        .checkout-btn {
+            background: #cb202d;
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 16px;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: #b01c27;
+        }
+
+        .cart-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #cb202d;
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #333;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .veg-icon {
+            width: 16px;
+            height: 16px;
+            border: 1px solid green;
+            position: relative;
+            margin-right: 6px;
+        }
+
+        .veg-icon::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: green;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @media (max-width: 768px) {
+            .container-content {
+                flex-direction: column;
+            }
+            .bottom-dishes {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .bottom-dishes {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-color position-relative">
+
+    
+    <!-- Header section start -->
+    <div id="header-container">sadf</div>
+
+        <script>
+        $(function () {
+            $('#header-container').load('header');
+        });
+        </script>
+    <!-- Header Section end -->
+
+    <!-- banner section starts -->
+    <section class="product-banner-section">
+        <div class="container">
+            <div class="restaurant-box">
+                <div class="restaurant-image">
+                    <img class="img-fluid img" src="assets/images/icons/brand13.png" alt="brand13">
+                </div>
+                <div class="restaurant-details">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                        <div>
+                            <h2 class="restaurant-name">
+                            </h2>
+                            <h4 class="restaurant-place"></h4>
+                        </div>
+                        <div class="restaurant-description">
+                            <div class="categories-icon">
+                                <a href="#!" id="liveToastBtn">
+                                    <i class="ri-share-line icon text-white"></i>
+                                </a>
+                                <a href="#!" class="like-btn animate inactive">
+                                    <i class="ri-heart-3-fill fill-icon"></i>
+                                    <i class="ri-heart-3-line text-white outline-icon"></i>
+                                    <div class="effect-group">
+                                        <span class="effect"></span>
+                                        <span class="effect"></span>
+                                        <span class="effect"></span>
+                                        <span class="effect"></span>
+                                        <span class="effect"></span>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="distance d-flex align-items-center">
+                                <h4 class="text-white shop-time">4.0km</h4>
+                                <h4 class="rating-star">
+                                    <span class="star"><i class="ri-star-s-fill"></i></span> 5.0
+                                    (1k+ Reviews)
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- banner section end -->
+
+    <!-- tab section starts -->
+    <div class="container-content">
+        <div class="main-dish">
+            <img src="/api/placeholder/800/400" alt="Butter Chicken" class="main-dish-img">
+            <div class="main-dish-details">
+                <div class="dish-title">
+                    <div class="dish-name">
+                        <h2 class="dishName">Butter Chicken</h2>
+                        <div class="restaurant">Punjabi Delight</div>
+                    </div>
+                    <div class="rating">4.8 ★</div>
+                </div>
+                <div class="dish-description">
+                    Tender chicken pieces cooked in a rich tomato and butter gravy, spiced with aromatic Indian spices. Served with a side of butter naan.
+                </div>
+                <div class="dish-meta">
+                    <div class="meta-item">
+                        <div class="veg-icon"></div>
+                        Trusted
+                    </div>
+                    <div class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#696969">
+                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                        </svg>
+                        1.2k views
+                    </div>
+                    <div class="meta-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#696969">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                        256 favorites
+                    </div>
+                </div>
+                <div class="price-cart">
+                    <div class="price">₹399</div>
+                    <div class="cart-actions">
+                        <button class="add-to-cart" data-id="1" data-name="Butter Chicken" data-price="399">Add to Cart</button>
+                        <div class="qty-selector">
+                            <button class="qty-btn minus">-</button>
+                            <input type="text" class="qty-input" value="1" readonly>
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="related-dishes">
+            <h3 class="suggestions-title">FIND MORE</h3>
+           
+            <!-- <div class="related-dish">
+                <img  class="related-img">
+                <div class="related-details">
+                    <div>
+                        <div class="related-name"></div>
+                        <div class="related-restaurant"></div>
+                    </div>
+                    <div class="related-bottom">
+                        <div class="related-price"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="related-dish">
+                <img  class="related-img">
+                <div class="related-details">
+                    <div>
+                        <div class="related-name"></div>
+                        <div class="related-restaurant"></div>
+                    </div>
+                    <div class="related-bottom">
+                        <div class="related-price"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="related-dish">
+                <img  class="related-img">
+                <div class="related-details">
+                    <div>
+                        <div class="related-name"></div>
+                        <div class="related-restaurant"></div>
+                    </div>
+                    <div class="related-bottom">
+                        <div class="related-price"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="related-dish">
+                <img  class="related-img">
+                <div class="related-details">
+                    <div>
+                        <div class="related-name"></div>
+                        <div class="related-restaurant"></div>
+                    </div>
+                    <div class="related-bottom">
+                        <div class="related-price"></div>
+                    </div>
+                </div>
+            </div> -->
+            
+        </div>
+    </div>
+
+    <div class="container bottom-suggestions">
+        <h3>Recommended for you</h3>
+        <div class="bottom-dishes">
+            <div class="bottom-dish">
+                <img src="/api/placeholder/400/300" alt="Chicken Biryani" class="bottom-img">
+                <div class="bottom-details">
+                    <div class="bottom-name">Chicken Biryani</div>
+                    <div class="bottom-restaurant">Paradise Biryani</div>
+                    <div class="bottom-bottom">
+                        <div class="related-price">₹349</div>
+                        <button class="related-add" data-id="5" data-name="Chicken Biryani" data-price="349">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-dish">
+                <img src="/api/placeholder/400/300" alt="Masala Dosa" class="bottom-img">
+                <div class="bottom-details">
+                    <div class="bottom-name">Masala Dosa</div>
+                    <div class="bottom-restaurant">South Indian Kitchen</div>
+                    <div class="bottom-bottom">
+                        <div class="related-price">₹199</div>
+                        <button class="related-add" data-id="6" data-name="Masala Dosa" data-price="199">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-dish">
+                <img src="/api/placeholder/400/300" alt="Veg Manchurian" class="bottom-img">
+                <div class="bottom-details">
+                    <div class="bottom-name">Veg Manchurian</div>
+                    <div class="bottom-restaurant">Dragon Express</div>
+                    <div class="bottom-bottom">
+                        <div class="related-price">₹249</div>
+                        <button class="related-add" data-id="7" data-name="Veg Manchurian" data-price="249">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+        <a class="cart-toggle" href = "cart">
+            <i class="ri-shopping-cart-line"></i>
+            <span class="cart-badge cart-count">0</span>
+        </a>
+
+        <div class="cart-container">
+            <div class="cart-header">
+                <div class="cart-title">Your Cart</div>
+                <div class="cart-close">✕</div>
+            </div>
+            <div class="cart-items">
+                <!-- Cart items will be added here dynamically -->
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span>$0.00</span>
+            </div>
+            <button class="checkout-btn">CHECKOUT</button>
+        </div>    <!-- tab section end -->
+
+    <!-- footer section starts -->
+    <footer class="footer-section section-t-space">
+        <div class="subscribe-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="subscribe-part">
+                            <h5>
+                                Don't pass up our fantastic discounts. email offers from all
+                                of our best eateries
+                            </h5>
+                            <div class="position-relative w-100">
+                                <input type="email" class="form-control subscribe-form-control"
+                                    placeholder="Enter your Email">
+                                <a href="#" class="btn theme-btn subscribe-btn mt-0">Subscribe Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="main-footer">
+                <div class="row g-3">
+                    <div class="col-xl-4 col-lg-12">
+                        <div class="footer-logo-part">
+                            <img class="img-fluid logo" src="assets/images/svg/logo.svg" alt="logo">
+                            <p>
+                                Welcome to our online order website! Here, you can browse our
+                                wide selection of products and place orders from the comfort
+                                of your own home.
+                            </p>
+                            <div class="social-media-part">
+                                <ul class="social-icon">
+                                    <li>
+                                        <a href="https://www.facebook.com/login/">
+                                            <i class="ri-facebook-fill icon"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://twitter.com/i/flow/login">
+                                            <i class="ri-twitter-fill icon"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.linkedin.com/login/">
+                                            <i class="ri-linkedin-fill icon"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.instagram.com/accounts/login/">
+                                            <i class="ri-instagram-fill icon"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.youtube.com/">
+                                            <i class="ri-youtube-fill icon"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-8">
+                        <div class="row g-3">
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                                <h5 class="footer-title">Company</h5>
+                                <ul class="content">
+                                    <li>
+                                        <a href="about">
+                                            <h6>About us</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="contact">
+                                            <h6>Contact us</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="offer">
+                                            <h6>Offer</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="faq">
+                                            <h6>FAQs</h6>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                                <h5 class="footer-title">Account</h5>
+                                <ul class="content">
+                                    <li>
+                                        <a href="my-order">
+                                            <h6>My orders</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="wishlist">
+                                            <h6>Wishlist</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="checkout">
+                                            <h6>Shopping Cart</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="saved-address">
+                                            <h6>Saved Address</h6>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                                <h5 class="footer-title">Useful links</h5>
+                                <ul class="content">
+                                    <li>
+                                        <a href="blog-grid-left-sidebar">
+                                            <h6>Blogs</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="signin">
+                                            <h6>Login</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="signup">
+                                            <h6>Register</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="profile">
+                                            <h6>Profile</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="setting">
+                                            <h6>Settings</h6>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                                <h5 class="footer-title">Top Brands</h5>
+                                <ul class="content">
+                                    <li>
+                                        <a href="menu-listing">
+                                            <h6>PizzaBoy</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="menu-listing">
+                                            <h6>Saladish</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="menu-listing">
+                                            <h6>IcePops</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="menu-listing">
+                                            <h6>Maxican Hoy</h6>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="menu-listing">
+                                            <h6>La Foodie</h6>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-footer-part">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                    <h6>@ Copyright 2024 ZOMO. All rights Reserved.</h6>
+                    <img class="img-fluid cards" src="assets/images/icons/footer-card.png" alt="card">
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer section end -->
+
+    <!-- cart fix panel -->
+    <div class="fixed-btn d-lg-none d-block">
+        <div class="custom-container">
+            <div class="cart-fixed-bottom">
+                <h6 class="fw-medium"></h6>
+                <a href="checkout" class="cart-fixed-right">
+                    <h6 class="fw-medium text-white">
+                        View cart <i class="ri-arrow-right-line"></i>
+                    </h6>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- cart fix panel -->
+
+    <!-- location offcanvas start -->
+    <div class="modal fade location-modal" id="location" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                        <h5 class="fw-semibold">Select a Location</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="search-section">
+                        <form class="form_search" role="form">
+                            <input type="search" placeholder="Search Location" class="nav-search nav-search-field">
+                        </form>
+                    </div>
+                    <a href="#!" class="current-location">
+                        <div class="current-address">
+                            <i class="ri-focus-3-line focus"></i>
+                            <div>
+                                <h5>Use current-location</h5>
+                                <h6>Wellington St., Ottawa, Ontario, Canada</h6>
+                            </div>
+                        </div>
+                        <i class="ri-arrow-right-s-line arrow"></i>
+                    </a>
+                    <h5 class="mt-sm-3 mt-2 fw-medium recent-title dark-text">
+                        Recent Location
+                    </h5>
+                    <a href="#!" class="recent-location">
+                        <div class="recant-address">
+                            <i class="ri-map-pin-line theme-color"></i>
+                            <div>
+                                <h5>Bayshore</h5>
+                                <h6>kingston St., Ottawa, Ontario, Canada</h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn gray-btn" data-bs-dismiss="modal">Close</a>
+                    <a href="#" class="btn theme-btn mt-0" data-bs-dismiss="modal">Save</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- location offcanvas end -->
+
+    <!-- customized modal starts -->
+    <div class="modal customized-modal" id="customized" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="container">
+                    <div class="filter-header">
+                        <h5 class="title">Custom Food</h5>
+                        <a href="#" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+                    </div>
+                    <div class="filter-body">
+                        <div class="filter-title">
+                            <h5 class="fw-medium dark-text">Choose Size</h5>
+                        </div>
+                        <ul class="filter-list">
+                            <li>
+                                <h6 class="product-size">Size S</h6>
+                                <div class="form-check product-price">
+                                    <label class="form-check-label" for="reverseCheck1">$18</label>
+                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                </div>
+                            </li>
+                            <li>
+                                <h6 class="product-size">Size M</h6>
+                                <div class="form-check product-price">
+                                    <label class="form-check-label" for="reverseCheck1">$20</label>
+                                    <input class="form-check-input" type="checkbox" id="reverseCheck2" checked>
+                                </div>
+                            </li>
+                            <li>
+                                <h6 class="product-size">Size L</h6>
+                                <div class="form-check product-price">
+                                    <label class="form-check-label" for="reverseCheck1">$22</label>
+                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck3">
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="filter-title">
+                            <h5 class="fw-medium dark-text">Choose Size</h5>
+                        </div>
+                        <ul class="filter-list border-0">
+                            <li>
+                                <h6 class="product-size">Chili sauce</h6>
+                                <div class="form-check product-price">
+                                    <label class="form-check-label" for="reverseCheck1">$18</label>
+                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck4">
+                                </div>
+                            </li>
+                            <li>
+                                <h6 class="product-size">Mustard</h6>
+                                <div class="form-check product-price">
+                                    <label class="form-check-label" for="reverseCheck1">$20</label>
+                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck5" checked>
+                                </div>
+                            </li>
+                            <li>
+                                <h6 class="product-size">Special dipping sauce</h6>
+                                <div class="form-check product-price">
+                                    <label class="form-check-label" for="reverseCheck1">$22</label>
+                                    <input class="form-check-input" type="checkbox" value="" id="reverseCheck6">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="filter-footer">
+                        <a href="#" class="btn theme-btn add-btn w-100 mt-0" data-bs-dismiss="modal">Apply</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- customized modal end -->
+
+    <!-- toast starts -->
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex bg-theme text-white">
+                <div class="toast-body">Restaurant URL Copied to Clipboard</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+    <!-- toast end -->
+
+    <!-- Bg Overlay Start -->
+    <div class="bg-overlay" id="overlay"></div>
+    <!-- Bg Overlay end -->
+
+    
+
+    <!-- tap to top start -->
+    <button class="scroll scroll-to-top menu-page">
+        <i class="ri-arrow-up-s-line arrow"></i>
+    </button>
+    <!-- tap to top end -->
+
+    <!-- bootstrap js -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+
+    <!-- swiper js -->
+    <script src="assets/js/swiper-bundle.min.js"></script>
+    <script src="assets/js/custom-swiper.js"></script>
+
+    <!-- footer accordion js -->
+    <script src="assets/js/footer-accordion.js"></script>
+
+    <!-- menu button js -->
+    <script src="assets/js/menu-button.js"></script>
+
+    <!-- fancybox js -->
+    <script src="assets/js/fancybox.js"></script>
+
+    <!-- toast js -->
+    <script src="assets/js/toast.js"></script>
+
+    <!-- script js -->
+    <script src="assets/js/script.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/userName.js"></script>
+    <script src="js/update-cart.js"></script>
+    <script src="js/menu-listing.js"></script>
+</body>
+
+
+<!-- Mirrored from themes.pixelstrap.net/zomo/landing/frontend/menu-listing by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 May 2025 12:47:37 GMT -->
+</html>
